@@ -30,81 +30,6 @@
   background-color: #6687BA;
 }  
 
-  Learn to code — free 3,000-hour curriculum
-
-OCTOBER 3, 2022
-/
-#JAVASCRIPT
-How to Build a Modal with JavaScript
-Victor Eke
-Victor Eke
-How to Build a Modal with JavaScript
-It's probably happened to you before: you unintentionally attempted to perform an action on a webpage, but luckily got a pop-up window asking you to confirm your decision.
-
-This pop-up window is called a modal. It's a web page element that pops up and displays in front of other page content.
-
-You can use modals for doing things like storing information you don't want to immediately see on a webpage, creating navigation menus, adding call-to-action elements, and more.
-
-An excellent example is the modal that appears on Twitter when you attempt to close the compose tweet menu.
-
-Twitter warning modal window
-
-You can also use modals for other things like creating call-to-action elements, navigation menus, newsletter widgets, and more.
-
-As a web developer, knowing how to build a modal can be an handy skill to have. In this tutorial, I'll walk you through the process of how you can create a simple modal using HTML, CSS, and JavaScript.
-
-Here's a screenshot of what we’ll be building:
-
-A modal built with html, css and javascript
-
-The steps are very easy to follow so you can customize the modal or build your own from scratch – it’s entirely up to you. At the end of this article, I'll provide the codepen file so you can play around with it.
-
-Step 1 – Add the Markup
-Alright, let's get started with the HTML.
-
-First, you'll add a section element and give it two classes, modal and hidden. Under this element, you’ll also have a <div> element with a class of overlay and hidden. Then finally, you’ll add a <button> element with a class of btn and btn-open.
-
-Here’s what that looks like:
-
-<section class="modal hidden"></section>
-<div class="overlay hidden"></div>
-<button class="btn btn-open">Open Modal</button>
-The section element with a class of modal will serve as your modal container.
-The div with the class of overlay will serve as your overlay element. This is the dark blurred background you see when the modal is open.
-The button with the class of btn and btn-open will serve as your modal button so it fires up our modal when you click this button.
-Now inside of your modal, add the markup, and also add the X button for closing the modal. This button will be assigned a btn-close class.
-
-So here’s what your complete markup will look like at the end:
-
-<section class="modal hidden">
-  <div class="flex">
-    <img src="user.png" width="50px" height="50px" alt="user" />
-    <button class="btn-close">⨉</button>
-  </div>
-  <div>
-    <h3>Stay in touch</h3>
-    <p>
-      This is a dummy newsletter form so don't bother trying to test it. Not
-      that I expect you to, anyways. :)
-    </p>
-  </div>
-
-  <input type="email" id="email" placeholder="brendaneich@js.com" />
-  <button class="btn">Submit</button>
-</section>
-
-<div class="overlay hidden"></div>
-<button class="btn btn-open">Open Modal</button>
-Important ⚠️ Take note of the hidden class added to the modal and the overlay element. This is very important because you'll target these classes to hide your modal and overlay using CSS.
-
-Here's the output:
-
-complete-markup
-
-Step 2 – Style the Modal
-Let's start by resetting the default margin and padding of every element on the page, and then center both the modal and open-modal button.
-
-Now jump over to your CSS and add the following styles:
 
 * {
   margin: 0;
@@ -226,5 +151,5 @@ button {
 <div class="overlay hidden"></div>
 <button class="btn btn-open">Open Modal</button>
 
-</body>
+  </body>
 </html>

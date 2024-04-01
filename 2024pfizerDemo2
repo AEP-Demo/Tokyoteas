@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  window.targetGlobalSettings = {  
+   cookieDomain: 'aep-demo.github.io'
+};
+</script>
+<script src="https://assets.adobedtm.com/6d07e8369d1a/f36fc251ed85/launch-4a6135538356-development.min.js" async></script>
+</head>
+<body>
+<h2>Thank you.</h2>
+</body>
+</html>

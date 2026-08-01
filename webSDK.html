@@ -78,6 +78,79 @@ aa.pageURL = pageUrl;
 aa.prop51 = "D=g";
 aa.prop11 = "Build Date: " + _satellite.buildInfo.buildDate + " |ECID: " + (_satellite.getVar("wSDK | ECID") || "");
 
+    //DE - wSDK | getPercentagePageViewed Init
+
+    if (window.__ppvInitialized) return false;
+        window.__ppvInitialized = true;
+        function ppvCookie(name) {
+            var m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+            return m ? decodeURIComponent(m[1]) : "";
+        }
+        function ppvSetCookie(name, value) {
+            document.cookie = name + "=" + encodeURIComponent(value) + "; path=/";
+        }
+        function measure() {
+            var docHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+            var viewportHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+            var scrollBottom = (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop) + viewportHeight;
+           var percent = Math.min(Math.round((scrollBottom / docHeight) * 100), 100);
+            var fold = Math.floor(scrollBottom / viewportHeight);
+            var totalFolds = Math.floor(docHeight / viewportHeight);
+            if (percent <= 0) return;
+
+            var parts = (ppvCookie("s_ppv") || "").split(",");
+            var initialPercent = parts[2] !== undefined ? parseInt(parts[2], 10) : percent;
+            var highestPercent = parts[1] !== undefined ? parseInt(parts[1], 10) : percent;
+            var highestPixels = parts[3] !== undefined ? parseInt(parts[3], 10) : scrollBottom;
+            var foldsSeen = parts[4] !== undefined ? parseInt(parts[4], 10) : fold;
+            var foldsAvail = parts[5] !== undefined ? parseInt(parts[5], 10) : totalFolds;
+
+            ppvSetCookie("s_ppv", [
+                window.location.pathname,
+                Math.max(percent, highestPercent),
+                initialPercent,
+                Math.max(scrollBottom, highestPixels),
+                Math.max(fold, foldsSeen),
+                Math.max(totalFolds, foldsAvail)
+            ].join(","));
+        }
+        window.addEventListener("load", measure, false);
+        window.addEventListener("click", measure, false);
+        window.addEventListener("scroll", measure, false);
+        return true;
+
+    //DE - wSDK - getPercentagePageViewed Summary
+    function ppvCookie(name) {
+            var m = document.cookie.match(new RegExp("(?:^|; )" + name + "=([^;]*)"));
+            return m ? decodeURIComponent(m[1]) : "";
+        }
+        var stored = ppvCookie("s_ppv");
+        if (!stored) return "";
+        var parts = stored.split(",");
+        return "highestPercentViewed=" + (parts[1] || "0") +
+            " | initialPercentViewed=" + (parts[2] || "0") +
+            " | foldsSeen=" + (parts[4] || "0") +
+            " | foldsAvailable=" + (parts[5] || "0");
+
+    //DE - wSDK | Campaign Value
+
+    var cmpid = _satellite.getVar("wSDK | cmpid") || "";
+   if (cmpid) return cmpid;
+        var wcMid = _satellite.getVar("wSDK | WC_MID") || "";
+        if (wcMid) return wcMid;
+        var utmSource = _satellite.getVar("wSDK | utm_source") || "";
+        if (utmSource) {
+            return utmSource + "|" +
+                (_satellite.getVar("wSDK | utm_medium") || "") + "|" +
+                (_satellite.getVar("wSDK | utm_term") || "") + "|" +
+                (_satellite.getVar("wSDK | utm_campaign") || "");
+        }
+        return "";
+
     -->
 </head>
 

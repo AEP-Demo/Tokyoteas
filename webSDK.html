@@ -151,6 +151,27 @@ aa.prop11 = "Build Date: " + _satellite.buildInfo.buildDate + " |ECID: " + (_sat
         }
         return "";
 
+    //DE - FCU Page Name
+    var pageName = digitalData?.page?.pageInfo?.pageName;
+var pageType = digitalData?.page?.pageInfo?.pageType;
+
+if (!pageName && !pageType) {
+    pageName = _satellite.getVar("wSDK | getPageName");
+}
+
+if (pageName) {
+    pageName = pageName
+        .toLowerCase()
+        .replace(/: /g, ":")
+        .replace(/ :/g, ":")
+        .replace(/:ajax$/, "")
+        .replace(/:pageload$/, "");
+}
+
+return pageName;
+
+    //Redirect identity rule conditional - navyfederal\.org|lendkey\.com
+
     -->
 </head>
 

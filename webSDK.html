@@ -11,7 +11,7 @@ content.data.__adobe.analytics = content.data.__adobe.analytics || {};
 var aa = content.data.__adobe.analytics;
 
 // Page Name cleaned up
-var pageName = _satellite.getVar("FCU Page Name");
+var pageName = _satellite.getVar("Page Name");
 if (pageName) aa.pageName = pageName;
 
 // Click-tracking contextData.clickStream
@@ -66,9 +66,9 @@ if (oN && oLN) {
 // Normalized page URL (query values stripped, lender-navyfederal truncation)
 // ---------------------------------------------------------------
 var pageUrl = (window.location.href || "").toLowerCase().replace(/=.+?(&|$)/g, "=&");
-var idx = pageUrl.indexOf("lender-navyfederal");
+var idx = pageUrl.indexOf("ABC");
 if (idx !== -1) {
-    pageUrl = pageUrl.substring(0, idx + "lender-navyfederal".length);
+    pageUrl = pageUrl.substring(0, idx + "ABC".length);
 }
 aa.pageURL = pageUrl;
 
@@ -151,7 +151,7 @@ aa.prop11 = "Build Date: " + _satellite.buildInfo.buildDate + " |ECID: " + (_sat
         }
         return "";
 
-    //DE - FCU Page Name
+    //DE - Page Name
     var pageName = digitalData?.page?.pageInfo?.pageName;
 var pageType = digitalData?.page?.pageInfo?.pageType;
 
@@ -170,7 +170,7 @@ if (pageName) {
 
 return pageName;
 
-    //Redirect identity rule conditional - navyfederal\.org|lendkey\.com
+    //Redirect identity rule conditional - ABC\.org|ABC\.com
 
     -->
 </head>

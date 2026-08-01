@@ -2,10 +2,100 @@
 <html>
 
 <head>
-  
- </head>
+    <!--
+    Paste your JavaScript here for reference.
+
+content.data = content.data || {};
+content.data.__adobe = content.data.__adobe || {};
+content.data.__adobe.analytics = content.data.__adobe.analytics || {};
+var aa = content.data.__adobe.analytics;
+
+// Page Name cleaned up
+var pageName = _satellite.getVar("FCU Page Name");
+if (pageName) aa.pageName = pageName;
+
+// Click-tracking contextData.clickStream
+var isLinkClick = content.xdm && content.xdm.eventType === "web.webinteraction.linkClicks";
+if (isLinkClick && aa.pageName) {
+    aa.contextData = aa.contextData || {};
+    aa.contextData.clickStream = aa.pageName;
+}
+
+// Time parting
+var tp = (_satellite.getVar("wSDK | getTimeParting") || "").split(" | ").map(function (part) {
+    return (part.split("=")[1] || "").trim();
+});
+if (tp[4]) aa.prop4 = aa.eVar4 = tp[4];
+if (tp[3]) aa.prop5 = aa.eVar5 = tp[3];
+
+// ---------------------------------------------------------------
+// Previous page value
+// ---------------------------------------------------------------
+var prevPageValue = _satellite.getVar("wSDK | getPreviousValue");
+if (prevPageValue) aa.prop13 = prevPageValue;
+
+// Percentage Page Viewed
+_satellite.getVar("wSDK | getPercentagePageViewed Init"); // Attaches listeners once
+var ppvSummary = _satellite.getVar("DE - PPV Summary");
+if (ppvSummary) aa.prop60 = ppvSummary;
+
+// ---------------------------------------------------------------
+// Campaign / attribution
+// ---------------------------------------------------------------
+var campaign = _satellite.getVar("wSDK | getValOnce | Campaign");
+if (campaign) aa.campaign = campaign;
+
+var eVar28 = _satellite.getVar("wSDK | getValOnce | WC_MID");
+if (eVar28) aa.eVar28 = eVar28;
+
+var eVar29 = _satellite.getVar("wSDK | getValOnce | WC_RID");
+if (eVar29) aa.eVar29 = eVar29;
+
+var eVar19 = _satellite.getVar("wSDK | getValOnce | intcmp");
+if (eVar19) aa.eVar19 = eVar19;
+
+// ---------------------------------------------------------------
+// Offer name / offer location concatenation
+// ---------------------------------------------------------------
+var oN = _satellite.getVar("wSDK | offerName") || "";
+var oLN = _satellite.getVar("wSDK | offerLocationName") || "";
+if (oN && oLN) {
+    aa.prop35 = aa.eVar35 = oN + "_" + oLN;
+}
+// ---------------------------------------------------------------
+// Normalized page URL (query values stripped, lender-navyfederal truncation)
+// ---------------------------------------------------------------
+var pageUrl = (window.location.href || "").toLowerCase().replace(/=.+?(&|$)/g, "=&");
+var idx = pageUrl.indexOf("lender-navyfederal");
+if (idx !== -1) {
+    pageUrl = pageUrl.substring(0, idx + "lender-navyfederal".length);
+}
+aa.pageURL = pageUrl;
+
+// ---------------------------------------------------------------
+// Debug / build info
+// ---------------------------------------------------------------
+aa.prop51 = "D=g";
+aa.prop11 = "Build Date: " + _satellite.buildInfo.buildDate + " |ECID: " + (_satellite.getVar("wSDK | ECID") || "");
+
+    -->
+</head>
 
 <body>
-  <h2>Test Page | Github repository</h2> 
-  </body>
+
+    <h2>Test Page | Github repository</h2>
+
+    <!--
+    ========================================================================
+    JAVASCRIPT NOTES
+    ========================================================================
+
+    Paste any JavaScript here. Since this is inside an HTML comment,
+    it will NOT execute.
+
+    ========================================================================
+    -->
+
+</body>
+
 </html>

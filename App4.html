@@ -2,33 +2,65 @@
 <html>
 
 <head>
-    <script>
-        window.digitalData = {
-            page: {
-                pageInfo: {
-                    pageName: "fcu:developer:apiportal",
-                    pageTitle: "Developer API Portal",
-                    pageURL: "https://developer.fcu.org/apis"
-                }
-            },
+    <script language='JavaScript' type='text/javascript'>
+    window.digitalData = {
 
-            applicationInfo: {
-                applicationName: "Developer Portal",
-                applicationType: "fcu-apiportal",
-                platform: "external",
-                environment: "prod"
-            }
-        };
+  page: {
+    pageInfo: {
+      pageName: "fcu:membership:apply",
+      pageTitle: "Membership Application",
+      pageURL: "https://www.fcu.org/membership/apply"
+    },
+
+    category: {
+      siteSection1: "fcu",
+      siteSection2: "fcu:membership",
+      siteSection3: "fcu:membership:apply"
+    }
+  },
+
+  user: {
+    attributes: {
+      employeeID: "EMP123456",
+      userType: "employee",
+      authenticatedStatus: "authenticated"
+    }
+  },
+
+  event: []
+};
     </script>
-
-   <script src="https://assets.adobedtm.com/161206a90d6a/99cf97fe7240/launch-9c25ceeb06fa-development.min.js" async></script>
-    </head>
+ <script src="https://assets.adobedtm.com/6d07e8369d1a/9c26a03da0e8/launch-84a4e2142b64-development.min.js" async></script>
+ </head>
 
 <body>
+  <h2>App #1 Test Page | Github repository - https://github.com/AEP-Demo/Tokyoteas</h2>
 
-    <h2>App #4 Test Page</h2>
-   
+  <a href="#" id="sampleLink"
+     data-link-name="Download Brochure"
+     data-link-type="download"
+     data-link-section="hero banner">
+     Download Brochure
+  </a>
+
+  <script>
+  document.getElementById("sampleLink").addEventListener("click", function (e) {
+
+    window.digitalData.event.push({
+      eventName: "link click",
+      eventData: {
+        linkName: "Download Brochure",
+        linkType: "download",
+        linkSection: "hero banner"
+      }
+    });
+
+    // notify Launch that a new event just fired
+    if (window._satellite) {
+      _satellite.track("linkClick");
+    }
+  });
+  </script>
+
 </body>
-
 </html>
-

@@ -5,4 +5,45 @@
 <body>
     <h2>Analytics Testing Demo Page</h2>
  </body>
+    <!--
+    // Activity Map link name – legacy logic + cleanup + fallback.
+// Never drops clicks; keeps Web SDK default when no better name exists.
+var el = content.clickedElement;
+var anchor = (el && el.closest) ? el.closest('a') : null;
+
+if (anchor) {
+  var parts = [];
+
+  // 1. Text from the anchor's direct children (text + element nodes)
+  Array.prototype.forEach.call(anchor.childNodes, function (node) {
+    if (node.nodeType === Node.TEXT_NODE ||
+        node.nodeType === Node.ELEMENT_NODE) {
+      var t = (node.textContent || '').trim();
+      if (t) parts.push(t);
+    }
+  });
+
+  // 2. Clean up: remove zero-width chars, collapse whitespace
+  var name = parts.join(' ')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // 3. Fallback for icon/image-only links
+  if (!name) {
+    var img = anchor.querySelector('img[alt]');
+    name = (
+      anchor.getAttribute('aria-label') ||
+      anchor.getAttribute('title') ||
+      (img ? img.getAttribute('alt') : '') ||
+      ''
+    ).replace(/\s+/g, ' ').trim();
+  }
+
+  // 4. Override only when we have a value
+  if (name) content.linkName = name;
+}
+
+return true; // always keep the click
+    -->
 </html>

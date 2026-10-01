@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <!----
+  // Legacy "Never Track": don't send clicks to these domains as exit links
+var NEVER_TRACK = ['lendkey.com', 'lkeystaging.com'];
+
+if (content.linkType === 'exit' && content.linkUrl) {
+  var host = '';
+  try {
+    host = new URL(content.linkUrl, location.href).hostname.toLowerCase();
+  } catch (e) {}
+
+  var isNeverTrack = NEVER_TRACK.some(function (d) {
+    return host === d || host.slice(-(d.length + 1)) === '.' + d;
+  });
+
+  if (isNeverTrack) return false; // don't send this click
+}
+
+return true; // keep all other clicks
+
+
+  // =============================================================
+// 1. Legacy "Never Track": treat these as internal, not exit
+// =============================================================
+var NEVER_TRACK_SCHEMES = ['javascript:', 'mailto:', 'tel:'];
+var NEVER_TRACK_DOMAINS = [
+  'navyfederal.org',              // also covers all *.navyfederal.org
+  'nfowww-intg.navyfederal.org',
+  'nfowww-perf.navyfederal.org',
+  'nfowww-perf2.navyfederal.org',
+  'nfowww-unit.nfcutest.net'
+];
+
+if (content.linkType === 'exit' && content.linkUrl) {
+  var url = String(content.linkUrl).trim().toLowerCase();
+
+  var isScheme = NEVER_TRACK_SCHEMES.some(function (s) {
+    return url.indexOf(s) === 0;
+  });
+
+  var host = '';
+  try {
+    host = new URL(content.linkUrl, location.href).hostname.toLowerCase();
+  } catch (e) {}
+
+  var isNeverTrackDomain = NEVER_TRACK_DOMAINS.some(function (d) {
+    return host === d || host.slice(-(d.length + 1)) === '.' + d;
+  });
+
+  if (isScheme || isNeverTrackDomain) {
+    content.linkType = 'other'; // internal click, not exit
+  }
+}
+
+// =============================================================
+// 2. Activity Map link name (legacy logic + cleanup + fallback)
+// =============================================================
+var el = content.clickedElement;
+var anchor = (el && el.closest) ? el.closest('a') : null;
+
+if (anchor) {
+  var parts = [];
+
+  Array.prototype.forEach.call(anchor.childNodes, function (node) {
+    if (node.nodeType === Node.TEXT_NODE ||
+        node.nodeType === Node.ELEMENT_NODE) {
+      var t = (node.textContent || '').trim();
+      if (t) parts.push(t);
+    }
+  });
+
+  var name = parts.join(' ')
+    .replace(/[\u200B-\u200D\uFEFF]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Fallback for icon/image-only links
+  if (!name) {
+    var img = anchor.querySelector('img[alt]');
+    name = (
+      anchor.getAttribute('aria-label') ||
+      anchor.getAttribute('title') ||
+      (img ? img.getAttribute('alt') : '') ||
+      ''
+    ).replace(/\s+/g, ' ').trim();
+  }
+
+  if (name) content.linkName = name;
+}
+
+return true; // always keep the click
+  --->
+    <h2>Analytics Testing Demo Page</h2>
+ </body>
+ </html>

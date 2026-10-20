@@ -18,10 +18,46 @@
   <!--
     SERVER-SIDE DEMO
     - No Adobe Launch / Web SDK on this page.
-    - Page view: sent by the server when this page is requested.
-    - Click: the "Request a product consultation" button posts to /api/track
-      (our own API); the server builds and sends the Adobe call.
+    - Page view: the CDN reads the data layer below from the page it serves,
+      builds the Adobe call and sends it server-to-server.
+    - Click: the "Request a product consultation" button posts the event plus
+      data layer values to /api/track (our own API); the CDN validates them,
+      builds the Adobe call and sends it.
   -->
+
+  <!-- AXIOMETRIQ DIGITAL DATA LAYER (JSON so the CDN can read it from the page) -->
+  <script id="digitalData" type="application/json">
+  {
+    "page": {
+      "pageInfo": {
+        "pageName": "axiometriq:server-side",
+        "pageTitle": "Axiometriq | Server-side Demo",
+        "pageURL": "https://www.axiometriq.com/server-side",
+        "siteName": "Axiometriq",
+        "pageType": "demo",
+        "language": "en"
+      },
+      "category": {
+        "siteSection1": "axiometriq",
+        "siteSection2": "axiometriq:demo",
+        "siteSection3": "axiometriq:server-side"
+      }
+    },
+    "site": {
+      "name": "Axiometriq",
+      "domain": "axiometriq.com"
+    },
+    "user": {
+      "attributes": {
+        "userType": "visitor",
+        "authenticatedStatus": "anonymous"
+      }
+    }
+  }
+  </script>
+  <script>
+    window.digitalData = JSON.parse(document.getElementById("digitalData").textContent);
+  </script>
 
   <style>
     :root {
@@ -1213,7 +1249,11 @@
       fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type: "click", name: "request-demo" }),
+        body: JSON.stringify({
+          type: "click",
+          name: "request-demo",
+          pageName: window.digitalData?.page?.pageInfo?.pageName
+        }),
         keepalive: true
       })
         .then(r => r.json().then(j => {

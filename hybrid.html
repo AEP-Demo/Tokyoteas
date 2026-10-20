@@ -1217,12 +1217,16 @@
 
     // HYBRID DEMO: "Request a product consultation" click.
     // Sets the link name in the data layer, then fires a custom event
-    // that the Launch click rule listens for (axq:linkClick).
+    // from the button that the Launch click rule listens for
+    // (Custom Event "axq:linkClick" on selector #requestDemo).
     document.getElementById("requestDemo").addEventListener("click", event => {
       const dd = window.digitalData;
       const linkId = event.currentTarget.dataset.linkId;          // "request-demo"
       dd.link.linkName = `${dd.page.pageInfo.pageName}:${linkId}`;
-      document.dispatchEvent(new CustomEvent("axq:linkClick", { detail: { linkName: dd.link.linkName } }));
+      event.currentTarget.dispatchEvent(new CustomEvent("axq:linkClick", {
+        bubbles: true,
+        detail: { linkName: dd.link.linkName }
+      }));
     });
 
     // Contact enquiry: opens the visitor's email application.

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Axiometriq | Server-side Demo</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#080c12; color:#f3f6fa; padding:48px; }
+    h1 { font-size:32px; margin-bottom:8px; }
+    p { color:#8c9aa9; max-width:560px; line-height:1.6; }
+    button { margin-top:24px; padding:14px 22px; background:#74f0e2; color:#071111;
+             border:0; font-weight:700; cursor:pointer; }
+    #status { margin-top:16px; font-family:monospace; color:#74f0e2; }
+  </style>
+</head>
+<body>
+  <h1>Server-side Analytics Demo</h1>
+  <p>No Adobe code runs on this page. The page view is sent by the server when
+     this page is requested. The click goes to our own API, and the server
+     forwards it to Adobe.</p>
+  <button id="cta">Request a demo</button>
+  <div id="status"></div>
+  <script>
+    document.getElementById("cta").addEventListener("click", async () => {
+      const res = await fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "click", name: "request-demo", page: location.pathname })
+      });
+      document.getElementById("status").textContent = "Click recorded: " + res.status;
+    });
+  </script>
+</body>
+</html>

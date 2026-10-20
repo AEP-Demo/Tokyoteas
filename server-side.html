@@ -43,6 +43,12 @@
         "siteSection3": "axiometriq:server-side"
       }
     },
+    "tracking": {
+      "implementationType": "Server-Side"
+    },
+    "link": {
+      "linkName": ""
+    },
     "site": {
       "name": "Axiometriq",
       "domain": "axiometriq.com"
@@ -961,7 +967,7 @@
 
         <div class="center-cta reveal">
           <!-- SERVER-SIDE DEMO: this button sends the "request-demo" click to /api/track -->
-          <a href="#contact" class="btn btn-outline" id="requestDemo">Request a product consultation <span class="arrow">↗</span></a>
+          <a href="#contact" class="btn btn-outline" id="requestDemo" data-link-id="request-demo">Request a product consultation <span class="arrow">↗</span></a>
         </div>
       </div>
     </section>
@@ -1245,14 +1251,19 @@
     // The browser only says which allowed event happened; the server builds,
     // authenticates and sends the Adobe call.
     const ssBadge = document.getElementById("ssBadge");
-    document.getElementById("requestDemo").addEventListener("click", () => {
+    document.getElementById("requestDemo").addEventListener("click", event => {
+      const dd = window.digitalData;
+      const linkId = event.currentTarget.dataset.linkId;          // "request-demo"
+      dd.link.linkName = `${dd.page.pageInfo.pageName}:${linkId}`; // keep data layer in sync
+
       fetch("/api/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "click",
-          name: "request-demo",
-          pageName: window.digitalData?.page?.pageInfo?.pageName
+          name: linkId,
+          pageName: dd.page.pageInfo.pageName,
+          pageURL: dd.page.pageInfo.pageURL
         }),
         keepalive: true
       })

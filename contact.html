@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact Us | Axiometriq</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Contact Axiometriq about web analytics, mobile analytics, CDP, personalization, data visualization or data strategy.">
+<link rel="canonical" href="https://www.axiometriq.com/contact.html">
+<meta name="theme-color" content="#0F2A4A">
+<link rel="icon" href="assets/logo-mark.svg" type="image/svg+xml">
+
+<!-- ============================================================
+     IDENTITY LAYER (FPID + ECID). Keep this first in <head>,
+     ahead of the Adobe Tags / Web SDK and Google tag loaders.
+     The code itself lives in assets/identity.js.
+     ============================================================ -->
+<script src="assets/identity.js"></script>
+
+<!-- Adobe Tags (Launch) embed code goes here: <script src="https://assets.adobedtm.com/.../launch-XXXX.min.js" async></script> -->
+<!-- Google Tag Manager snippet goes here (GTM-XXXXXXX) -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Sora:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Axiometriq home"><svg viewBox="0 0 34 34" aria-hidden="true"><path class="mark-axis" d="M6 3V28H31" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path class="mark-guide" d="M24 10V28M6 10H24" fill="none" stroke-width="1.2" stroke-dasharray="1.5 2.5"/><circle class="mark-point" cx="24" cy="10" r="4"/></svg><span class="wordmark">axiometri<span class="q">q</span></span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <a href="index.html">Home</a><a href="what-we-do.html">What we do</a><a href="services.html">Services</a><a href="technology.html">Technology</a><a href="instruments.html">Instruments</a><a href="why-choose-us.html">Why us</a><a href="about.html">About</a>
+      <a class="btn btn-primary" href="contact.html" aria-current="page">Contact us</a>
+    </nav>
+  </div>
+</header>
+<main id="top">
+<section class="page-hero">
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a> / Contact us</div>
+    <div class="eyebrow">Contact us</div>
+    <h1>Tell us what you're trying to measure.</h1>
+    <p class="lede">Share a little about your goals and platforms. A consultant will reply with next steps.</p>
+    
+  </div>
+</section>
+<section>
+  <div class="wrap split">
+    <div class="stack-gap" style="gap:0">
+      <div class="contact-detail"><div class="eyebrow">Email</div><div class="v">hello@axiometriq.com</div></div>
+      <div class="contact-detail"><div class="eyebrow">Careers</div><div class="v">careers@axiometriq.com</div></div>
+      <div class="contact-detail"><div class="eyebrow">Good to include</div><p class="muted">Your platforms (Adobe, Google or both), the report or process causing trouble, and any timeline you're working to.</p></div>
+    </div>
+    <div>
+      <form class="enquiry" id="enquiry-form" novalidate>
+        <div class="form-row">
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="f-company">Company</label><input id="f-company" name="company" autocomplete="organization"></div>
+          <div class="field"><label for="f-area">Area of interest</label>
+            <select id="f-area" name="area">
+              <option>Web analytics</option><option>Mobile app analytics</option><option>Customer data platform</option>
+              <option>Personalization &amp; testing</option><option>Data visualization</option><option>Data strategy &amp; transformation</option><option>Not sure yet</option>
+            </select></div>
+        </div>
+        <fieldset class="field"><legend>Platforms in use</legend>
+          <div class="checks">
+            <label><input type="checkbox" id="p-aa" name="platform" value="Adobe Analytics / CJA"> Adobe Analytics / CJA</label>
+            <label><input type="checkbox" id="p-aep" name="platform" value="Adobe AEP / RT-CDP"> Adobe AEP / RT-CDP</label>
+            <label><input type="checkbox" id="p-at" name="platform" value="Adobe Target / AJO"> Adobe Target / AJO</label>
+            <label><input type="checkbox" id="p-ga" name="platform" value="GA4 / GTM"> GA4 / GTM</label>
+            <label><input type="checkbox" id="p-bq" name="platform" value="BigQuery / Looker"> BigQuery / Looker</label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="f-msg">About your project</label><textarea id="f-msg" name="message" required></textarea></div>
+        <p class="err" id="form-error" hidden></p>
+        <div class="btn-row"><button class="btn btn-primary" type="submit">Prepare enquiry</button></div>
+      </form>
+      <div class="summary card" id="enquiry-summary" hidden>
+        <div class="eyebrow">Enquiry ready</div>
+        <h3>Send this to hello@axiometriq.com</h3>
+        <pre id="enquiry-text"></pre>
+        <div class="btn-row"><button class="btn btn-primary" type="button" id="copy-enquiry">Copy enquiry</button><button class="btn btn-ghost" type="button" id="edit-enquiry">Edit</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="stack-gap">
+        <a class="brand" href="index.html" aria-label="Axiometriq home"><svg viewBox="0 0 34 34" aria-hidden="true"><path class="mark-axis" d="M6 3V28H31" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path class="mark-guide" d="M24 10V28M6 10H24" fill="none" stroke-width="1.2" stroke-dasharray="1.5 2.5"/><circle class="mark-point" cx="24" cy="10" r="4"/></svg><span class="wordmark">axiometri<span class="q">q</span></span></a>
+        <p class="muted">Data analytics, measured on two axes: customer satisfaction through highest-quality delivery, and a growth mindset shared by our people and yours.</p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="why-choose-us.html">Why choose us</a></li>
+          <li><a href="industries.html">Industries</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="services.html#web">Web analytics</a></li>
+          <li><a href="services.html#mobile">Mobile app analytics</a></li>
+          <li><a href="services.html#cdp">Customer data platforms</a></li>
+          <li><a href="services.html#personalization">Personalization</a></li>
+          <li><a href="services.html#visualization">Data visualization</a></li>
+          <li><a href="services.html#strategy">Data strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platforms</h4>
+        <ul>
+          <li><a href="technology.html#adobe">Adobe Experience Cloud</a></li>
+          <li><a href="technology.html#google">Google Marketing Platform</a></li>
+          <li><a href="technology.html#identity">Identity: FPID &amp; ECID</a></li>
+          <li><a href="instruments.html">Instruments</a></li>
+          <li><a href="what-we-do.html">The Axis Method</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>&copy; <span id="year">2026</span> Axiometriq. All rights reserved.</span>
+      <span>Two axes. One measure of value.</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* Axiometriq — shared page behaviour */
+/* Axiom 2050 — shared page behaviour */
 (function () {
   // Mobile menu
   var toggle = document.querySelector(".menu-toggle");
@@ -11,62 +11,72 @@
     });
   }
 
+  var now = new Date();
+  var year = now.getFullYear();
+
   // Footer year
   var y = document.getElementById("year");
-  if (y) y.textContent = new Date().getFullYear();
+  if (y) y.textContent = year;
 
-  // Contact form: validates and prepares an enquiry summary.
-  // When deploying, replace the summary step with a POST to your form handler or CRM.
-  var form = document.getElementById("enquiry-form");
+  // Ribbon: place "you are here" between 2026 and 2050, and count the years left
+  var marker = document.getElementById("ribbon-marker");
+  if (marker) {
+    var start = new Date(2026, 0, 1).getTime();
+    var end = new Date(2050, 0, 1).getTime();
+    var pct = Math.min(100, Math.max(0, (now.getTime() - start) / (end - start) * 100));
+    marker.style.left = pct.toFixed(2) + "%";
+  }
+  var left = document.getElementById("years-left");
+  if (left) left.textContent = Math.max(0, 2050 - year);
+  var nowYear = document.getElementById("now-year");
+  if (nowYear) nowYear.textContent = year;
+
+  // "Share your 2050" form: validates and prepares a summary to copy.
+  // To collect submissions for real, point this at a form service when deploying.
+  var form = document.getElementById("vision-form");
   if (!form) return;
-  var out = document.getElementById("enquiry-summary");
-  var pre = document.getElementById("enquiry-text");
+  var out = document.getElementById("vision-summary");
+  var pre = document.getElementById("vision-text");
   var errBox = document.getElementById("form-error");
-  var copyBtn = document.getElementById("copy-enquiry");
-  var editBtn = document.getElementById("edit-enquiry");
+  var copyBtn = document.getElementById("copy-vision");
+  var editBtn = document.getElementById("edit-vision");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var name = form.elements["name"].value.trim();
+    var msg = form.elements["prediction"].value.trim();
     var email = form.elements["email"].value.trim();
-    var msg = form.elements["message"].value.trim();
-    if (!name || !email || !msg) {
-      errBox.textContent = "Add your name, work email and a short note about the project, then prepare the enquiry again.";
+    if (!msg) {
+      errBox.textContent = "Write your prediction for 2050, then prepare it again.";
       errBox.hidden = false;
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errBox.textContent = "That email address looks incomplete. Check it and try again.";
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errBox.textContent = "That email address looks incomplete. Fix it or leave it blank.";
       errBox.hidden = false;
       return;
     }
     errBox.hidden = true;
-    var platforms = Array.prototype.slice.call(form.querySelectorAll('input[name="platform"]:checked')).map(function (c) { return c.value; });
-    var lines = [
-      "Name: " + name,
-      "Email: " + email,
-      "Company: " + (form.elements["company"].value.trim() || "—"),
-      "Area of interest: " + form.elements["area"].value,
-      "Platforms in use: " + (platforms.length ? platforms.join(", ") : "Not specified"),
+    var outlook = form.querySelector('input[name="outlook"]:checked');
+    pre.textContent = [
+      "Name: " + (form.elements["name"].value.trim() || "Anonymous"),
+      "Email: " + (email || "Not given"),
+      "Shift: " + form.elements["shift"].value,
+      "Outlook: " + (outlook ? outlook.value : "Not given"),
       "",
       msg
-    ];
-    pre.textContent = lines.join("\n");
+    ].join("\n");
     form.hidden = true;
     out.hidden = false;
   });
 
   if (editBtn) editBtn.addEventListener("click", function () { out.hidden = true; form.hidden = false; });
-
   if (copyBtn) copyBtn.addEventListener("click", function () {
-    var text = pre.textContent;
     function selectFallback() {
       var r = document.createRange(); r.selectNodeContents(pre);
       var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
       copyBtn.textContent = "Selected — press Ctrl/Cmd+C";
     }
-    try {
-      navigator.clipboard.writeText(text).then(function () { copyBtn.textContent = "Copied"; }, selectFallback);
-    } catch (err) { selectFallback(); }
+    try { navigator.clipboard.writeText(pre.textContent).then(function () { copyBtn.textContent = "Copied"; }, selectFallback); }
+    catch (err) { selectFallback(); }
   });
 })();
